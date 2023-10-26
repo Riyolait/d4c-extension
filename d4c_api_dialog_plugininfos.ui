@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>pluginInfos</class>
+ <widget class="QDialog" name="pluginInfos">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>323</width>
+    <height>228</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string>Informations du Plugin</string>
+  </property>
+  <widget class="QLabel" name="label_pluginversion">
+   <property name="geometry">
+    <rect>
+     <x>10</x>
+     <y>10</y>
+     <width>301</width>
+     <height>211</height>
+    </rect>
+   </property>
+   <property name="frameShape">
+    <enum>QFrame::Box</enum>
+   </property>
+   <property name="frameShadow">
+    <enum>QFrame::Raised</enum>
+   </property>
+   <property name="lineWidth">
+    <number>1</number>
+   </property>
+   <property name="text">
+    <string>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;Détail de l'extension :&lt;/p&gt;&lt;p&gt;Cette extension utilise l'API de Data4Citizen afin de manipuler des Jeux de Données depuis Qgis.&lt;/p&gt;&lt;p&gt;Auteur : Matthieu Serek @ BPM-conseil&lt;br/&gt;&lt;br/&gt;Contact : matthieu.serek@bpm-conseil.com&lt;/p&gt;&lt;p&gt;Git :&lt;a href=&quot;https://github.com/Riyolait/d4c-qgis-extension&quot;&gt; https://github.com/Riyolait/d4c-qgis-extension&lt;/a&gt;&lt;/p&gt;&lt;p&gt;BPM-Conseil :&lt;a href=&quot;http://www.bpm-conseil.com/fr&quot;&gt; http://www.bpm-conseil.com/fr&lt;/p&gt;&lt;p&gt;Librairie(s) Python Externe : cryptography&lt;/a&gt;&lt;/p&gt;&lt;p&gt;Version : v1.3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</string>
+   </property>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>
