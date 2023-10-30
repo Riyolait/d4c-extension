@@ -125,7 +125,6 @@ class Ui_searchDataset(object):
         self.pushClose.setText(_translate("searchDataset", "Fermer"))
         self.label_4.setText(_translate("searchDataset", "Thèmes : "))
         self.label_5.setText(_translate("searchDataset", "Mot-clé : "))
-        self.comboBox.setPlaceholderText(_translate("searchDataset", "Choisir une organisation"))
         self.checkAz.setText(_translate("searchDataset", "A - z"))
         self.checkZa.setText(_translate("searchDataset", "Z - a"))
 

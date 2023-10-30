@@ -9,18 +9,34 @@
 
 
 from PyQt5 import QtCore, QtGui, QtWidgets
-
+import os
 
 class Ui_pluginInfos(object):
     def setupUi(self, pluginInfos):
+        self.plugin_dir = os.path.dirname(__file__)
         pluginInfos.setObjectName("pluginInfos")
-        pluginInfos.resize(323, 228)
+        pluginInfos.resize(460, 300)
         self.label_pluginversion = QtWidgets.QLabel(pluginInfos)
-        self.label_pluginversion.setGeometry(QtCore.QRect(10, 10, 301, 211))
+        self.label_pluginversion.setGeometry(QtCore.QRect(10, 60, 441, 231))
         self.label_pluginversion.setFrameShape(QtWidgets.QFrame.Box)
         self.label_pluginversion.setFrameShadow(QtWidgets.QFrame.Raised)
         self.label_pluginversion.setLineWidth(1)
+        self.label_pluginversion.setOpenExternalLinks(True)
+        self.label_pluginversion.setTextInteractionFlags(QtCore.Qt.TextBrowserInteraction)
         self.label_pluginversion.setObjectName("label_pluginversion")
+        self.label = QtWidgets.QLabel(pluginInfos)
+        self.label.setGeometry(QtCore.QRect(150, 10, 41, 41))
+        self.label.setText("")
+        self.label.setPixmap(QtGui.QPixmap(os.path.join(self.plugin_dir, 'img', 'd4c_icon.png')))
+        self.label.setScaledContents(True)
+        self.label.setObjectName("label")
+        self.label_2 = QtWidgets.QLabel(pluginInfos)
+        self.label_2.setGeometry(QtCore.QRect(190, 10, 121, 41))
+        font = QtGui.QFont()
+        font.setPointSize(16)
+        self.label_2.setFont(font)
+        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
+        self.label_2.setObjectName("label_2")
 
         self.retranslateUi(pluginInfos)
         QtCore.QMetaObject.connectSlotsByName(pluginInfos)
@@ -28,4 +44,5 @@ class Ui_pluginInfos(object):
     def retranslateUi(self, pluginInfos):
         _translate = QtCore.QCoreApplication.translate
         pluginInfos.setWindowTitle(_translate("pluginInfos", "Informations du Plugin"))
-        self.label_pluginversion.setText(_translate("pluginInfos", "<html><head/><body><p>Détail de l\'extension :</p><p>Cette extension utilise l\'API de Data4Citizen afin de manipuler des Jeux de Données depuis Qgis.</p><p>Auteur : Matthieu Serek @ BPM-conseil<br/><br/>Contact : matthieu.serek@bpm-conseil.com</p><p>Git :<a href=\"https://github.com/Riyolait/d4c-qgis-extension\"> https://github.com/Riyolait/d4c-qgis-extension</a></p><p>BPM-Conseil :<a href=\"http://www.bpm-conseil.com/fr\"> http://www.bpm-conseil.com/fr</p><p>Librairie(s) Python Externe : cryptography</a></p><p>Version : v1.3</p></body></html>"))
+        self.label_pluginversion.setText(_translate("pluginInfos", "<html><head/><body><p><span style=\" font-weight:600; text-decoration: underline;\">Détail de l\'extension </span><span style=\" font-weight:600;\">:</span> Cette extension utilise l\'API de Data4Citizen afin de</p><p>manipuler des Jeux de Données depuis Qgis.</p><p><span style=\" font-weight:600; text-decoration: underline;\">Auteur </span>: Matthieu Serek @ BPM-conseil<br/><br/><span style=\" font-weight:600; text-decoration: underline;\">Contact</span>: matthieu.serek@bpm-conseil.com</p><p><span style=\" font-weight:600; text-decoration: underline;\">Git</span> :<a href=\"https://github.com/Riyolait/d4c-qgis-extension\"><span style=\" text-decoration: underline; color:#0000ff;\"> https://github.com/Riyolait/d4c-qgis-extension</span></a></p><p><span style=\" font-weight:600; text-decoration: underline;\">BPM-Conseil</span> :<a href=\"http://www.bpm-conseil.com/fr\"><span style=\" text-decoration: underline; color:#0000ff;\"> http://www.bpm-conseil.com/fr</span></a></p><p><span style=\" font-weight:600; text-decoration: underline;\">Librairie(s) Python Externe</span> : cryptography</p><p><span style=\" font-weight:600; text-decoration: underline;\">Version </span>: v1.3</p></body></html>"))
+        self.label_2.setText(_translate("pluginInfos", "Data4Citizen"))

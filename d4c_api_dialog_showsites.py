@@ -54,6 +54,7 @@ class Ui_ShowSites(object):
         self.pushDuplicate.setGeometry(QtCore.QRect(310, 100, 91, 31))
         self.pushDuplicate.setObjectName("pushDuplicate")
 
+        self.pushButton.clicked.connect(self.openAddSite)
         self.pushButton_2.clicked.connect(self.openAddSite_forUpdate)
         self.pushButton_3.clicked.connect(self.deleteSite)
         self.pushDuplicate.clicked.connect(self.duplicateSite)

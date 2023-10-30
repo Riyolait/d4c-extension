@@ -21,11 +21,12 @@
  *                                                                         *
  ***************************************************************************/
 """
-from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QLocale
+from qgis.PyQt.QtCore import QSettings, QTranslator, QCoreApplication, Qt, QLocale , QVariant
 from qgis.PyQt.QtGui import QIcon
 from qgis.PyQt.QtWidgets import QAction, QMessageBox, QApplication, QStyle, QMainWindow
-from qgis.core import QgsVectorLayer, QgsProject
+from qgis.core import QgsVectorLayer, QgsVectorLayer, QgsPoint, QgsField, QgsFields, QgsGeometry, QgsFeature, QgsProject
 from PyQt5 import QtWidgets, QtGui, QtCore
+import csv
 
 
 # Initialize Qt resources from file resources.py
@@ -686,7 +687,7 @@ class d4cAPI:
                     
                     self.importGEOJSON(destination_path, file_name)
 
-                self.updateLastimportedfiles()
+                
 
                 
             except requests.exceptions.RequestException as e:
@@ -716,6 +717,7 @@ class d4cAPI:
             except Exception as e:
                 # Gestion d'autres exceptions non spécifiques
                 self.show_error_message(f"Unhandled error occured: {e}")
+            self.updateLastimportedfiles()
 
 
         else: 
@@ -733,10 +735,156 @@ class d4cAPI:
             self.show_error_message("Layer failed to load!")
         else:
             QgsProject.instance().addMapLayer(csv_layer)
-            if self.lang == 'fr':
-                self.show_success_message('Fichier importé avec succès')
-            else:
-                self.show_success_message('File imported successfully')
+            
+        
+            csv_data = []  # Créez une liste pour stocker les données CSV
+
+            # Ouvrez le fichier CSV et lisez ses données
+            with open(destination_path, 'r', encoding='utf-8') as csv_file:
+                csv_reader = csv.DictReader(csv_file)
+                for row in csv_reader:
+                    csv_data.append(row)
+
+            # Examinez les données du CSV et vérifiez si une colonne "geoshape" existe
+            # Si oui, extrayez les données géospatiales et créez la couche
+            if 'geo_shape' in csv_data[0]:
+                # Créez une couche vectorielle vide
+                fields = QgsFields()
+                for key, value in csv_data[0].items():
+                    if key != 'geo_shape':
+                        fields.append(QgsField(key, QVariant.String))
+                if json.loads(row['geo_shape']).get("type") == "Polygon":
+                    vl = QgsVectorLayer("Polygon?crs=EPSG:4326", f"{layer_name}", "memory")
+                elif json.loads(row['geo_shape']).get("type") == "Point":
+                    vl = QgsVectorLayer("Point?crs=EPSG:4326", f"{layer_name}", "memory")
+                elif json.loads(row['geo_shape']).get("type") == "LineString":
+                    vl = QgsVectorLayer("LineString?crs=EPSG:4326", f"{layer_name}", "memory")
+                vl.dataProvider().addAttributes(fields)
+                vl.updateFields()
+                vl.startEditing()
+                # Parcourez les données du CSV, extrayez les données WKT de la colonne "geoshape"
+                # Créez les entités géométriques et ajoutez-les à la couche
+                i = 1
+                for row in csv_data:
+        
+                    wkt_data = row['geo_shape']
+                    if wkt_data != '' and wkt_data != None and wkt_data != 'null':
+                        wkt_data = self.geojson_to_wkt(json.loads(wkt_data))
+                    
+                        geometry = QgsGeometry.fromWkt(wkt_data)
+                        if not geometry.isEmpty():
+                            feature = QgsFeature()
+                            feature.setGeometry(geometry)   
+                            vl.dataProvider().addFeature(feature)
+                            feature = vl.getFeature(i)
+                            # Ajoutez les valeurs des autres colonnes à l'entité
+                            for key, value in row.items():
+                                if key != 'geo_shape':
+                                    # Créez des champs pour les autres colonnes (s'ils n'existent pas déjà)
+                                    # Définissez la valeur du champ
+                                    vl.dataProvider().changeAttributeValues({feature.id(): {vl.fields().indexFromName(key): value}})
+                    i += 1
+
+                vl.commitChanges()   
+                # Ajoutez la couche au projet QGIS
+                QgsProject.instance().addMapLayer(vl)
+            
+            elif 'geo_point_2d' in csv_data[0]:
+                # Créez une couche vectorielle vide
+                fields = QgsFields()
+                for key, value in csv_data[0].items():
+                    if key != 'geo_point_2d':
+                        fields.append(QgsField(key, QVariant.String))
+                vl = QgsVectorLayer("Point?crs=EPSG:4326", f"{layer_name}", "memory")
+                vl.dataProvider().addAttributes(fields)
+                vl.updateFields()
+                vl.startEditing()
+
+                i = 1
+                for row in csv_data:
+        
+                    wkt_data = row['geo_point_2d']
+                    if wkt_data != '' and wkt_data != None and wkt_data != 'null':
+                        wkt_data = self.geojson_to_wkt(list(eval(wkt_data)))
+                        
+                        geometry = QgsGeometry.fromWkt(wkt_data)
+                        if not geometry.isEmpty():
+                            feature = QgsFeature()
+                            feature.setGeometry(geometry)   
+                            vl.dataProvider().addFeature(feature)
+                            feature = vl.getFeature(i)
+                            # Ajoutez les valeurs des autres colonnes à l'entité
+                            for key, value in row.items():
+                                if key != 'geo_point_2d':
+                                    # Créez des champs pour les autres colonnes (s'ils n'existent pas déjà)
+                                    # Définissez la valeur du champ
+                                    vl.dataProvider().changeAttributeValues({feature.id(): {vl.fields().indexFromName(key): value}})
+                    i += 1
+
+                vl.commitChanges()   
+                # Ajoutez la couche au projet QGIS
+                QgsProject.instance().addMapLayer(vl)
+                if self.lang == 'fr':
+                    self.show_success_message('Fichier importé avec succès')
+                else:
+                    self.show_success_message('File imported successfully')
+
+    def geojson_to_wkt(self, geojson):
+        if type(geojson) is list:
+            coordinates = geojson
+            if coordinates:
+                # Format WKT en utilisant les coordonnées GeoJSON
+                wkt = f"POINT({coordinates[1]} {coordinates[0]})"
+                return wkt
+        else:
+            # Vérifie si le type est "Polygon"
+            if geojson.get("type") == "Polygon":
+                coordinates = geojson.get("coordinates", [])
+                if coordinates:
+                    # Format WKT en utilisant les coordonnées GeoJSON
+                    wkt = "POLYGON(("
+                    for ring in coordinates:
+                        for coord in ring:
+                            wkt += f"{coord[0]} {coord[1]}, "
+                    # Supprime la virgule finale et ajoute la parenthèse fermante
+                    wkt = wkt[:-2] + "))"
+                    return wkt
+            # Vérifie si le type est "Point"
+            elif geojson.get("type") == "Point":
+                coordinates = geojson.get("coordinates", [])
+                if coordinates:
+                    # Format WKT en utilisant les coordonnées GeoJSON
+                    wkt = f"POINT({coordinates[0]} {coordinates[1]})"
+                    return wkt  
+            # Vérifie si le type est "LineString"
+            elif geojson.get("type") == "LineString":
+                coordinates = geojson.get("coordinates", [])
+                if coordinates:
+                    # Format WKT en utilisant les coordonnées GeoJSON
+                    wkt = "LINESTRING("
+                    for coord in coordinates:
+                        wkt += f"{coord[0]} {coord[1]}, "
+                    # Supprime la virgule finale et ajoute la parenthèse fermante
+                    wkt = wkt[:-2] + ")"
+                    return wkt
+            # Vérifie si le type est "MultiPolygon"
+            elif geojson.get("type") == "MultiPolygon":
+                coordinates = geojson.get("coordinates", [])
+                if coordinates:
+                    # Format WKT en utilisant les coordonnées GeoJSON
+                    wkt = "MULTIPOLYGON("
+                    for polygon in coordinates:
+                        wkt += "(("
+                        for ring in polygon:
+                            for coord in ring:
+                                wkt += f"{coord[0]} {coord[1]}, "
+                        # Supprime la virgule finale et ajoute la parenthèse fermante
+                        wkt = wkt[:-2] + ")), "
+                    # Supprime la virgule finale et ajoute la parenthèse fermante
+                    wkt = wkt[:-2] + ")"
+                    return wkt
+                
+            return None
 
     def importJSON(self,destination_path,file_name):
 
@@ -1161,9 +1309,11 @@ class d4cAPI:
             "datasets": datasets,
             "password": str(encrypted_password),
         }
-        data["last_session"]["sessions"].insert(0, new_session)  # Insérer la nouvelle session au début
 
-        # Limitez le nombre de sessions à 3
+        if not(data["last_session"]["sessions"][0]["site_url"] == new_session["site_url"] and data["last_session"]["sessions"][0]["username"] == new_session["username"] and data["last_session"]["sessions"][0]["datasets"] == new_session["datasets"]):
+            data["last_session"]["sessions"].insert(0, new_session)  # Ajoutez la nouvelle session au début de la liste
+
+        # Limitez le nombre de sessions à 10
         if len(data["last_session"]["sessions"]) > 10:
             data["last_session"]["sessions"].pop()  # Supprime la session la plus ancienne
 
@@ -2067,8 +2217,11 @@ class d4cAPI:
 
         if selected_resource:
             self.dlg.tableWidget.clear()
-            selected_resource = selected_resource.text()
-            if not(selected_resource.endswith('.csv')):
+            
+            selected_resource = selected_resource.text()        
+            url = self.resourceDict[selected_resource]
+
+            if not(url.endswith('.csv')):
                 
                 self.dlg.tableWidget.setRowCount(1)
                 self.dlg.tableWidget.setColumnCount(1)
