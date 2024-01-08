@@ -1923,10 +1923,14 @@ class d4cAPI:
                 keywords_checked.append(checkbox.objectName())
         
         #create string for themes (and extras)
+        
         extras_str = "{\"themes\":\"["
         for theme in themes_checked:
             extras_str += '\\\"' + theme + '\\\",'
-        extras_str = extras_str[:-1] + "]\""
+        if themes_checked == []:
+            extras_str = "{\"themes\":\"[]\""
+        else:
+            extras_str = extras_str[:-1] + "]\""
 
         if not(self.ui3.hideInCatalogue.isChecked()) and not(self.ui3.hideInGraph.isChecked()) and not(self.ui3.hideInMap.isChecked):
             extras_str += '}'
