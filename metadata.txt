@@ -3,10 +3,10 @@
 # This file should be included when you package your plugin.# Mandatory items:
 
 [general]
-name=D4C Plugin
+name=Data4Citizen Plugin
 qgisMinimumVersion=3.0
 description=Using Data4Citizen API to manipulate CKAN data
-version=1.31
+version=1.4.0
 author=MSE @ BPM-conseil
 email=matthieu.serek@bpm-conseil.com
 
@@ -37,7 +37,7 @@ deprecated=False
 # Since QGIS 3.8, a comma separated list of plugins to be installed
 # (or upgraded) can be specified.
 # Check the documentation for more information.
-# plugin_dependencies=
+# plugin_dependencies=cryptography,requests
 
 Category of the plugin: Raster, Vector, Database or Web
 # category=Database

@@ -1,0 +1,24 @@
+{
+    "sites": [
+        {
+            "name": "OpenData Grenoble",
+            "site_url": "https://data.metropolegrenoble.fr/"
+        },
+        {
+            "name": "OBS Foncier Martinique",
+            "site_url": "https://www.obs-foncier-martinique.fr/"
+        },
+        {
+            "name": "ODEC",
+            "site_url": "https://odec-bfc.fr/"
+        },
+        {
+            "name": "OpenData La Rochelle",
+            "site_url": "https://opendata.agglo-larochelle.fr/"
+        },
+        {
+            "name": "OFER BFC",
+            "site_url": "https://oferbfc.fr/"
+        }
+    ]
+}

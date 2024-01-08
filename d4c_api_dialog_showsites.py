@@ -93,8 +93,10 @@ class Ui_ShowSites(object):
         name = siteName
         username = user
         password = pwd
-
-        encrypted_password = self.fernet.encrypt(password.encode())
+        if password == '':
+            encrypted_password = ''
+        else:
+            encrypted_password = self.fernet.encrypt(password.encode())
          # Set up the destination folder
         if not os.path.exists(os.path.expanduser("~") + '/.d4cplugin/'):
             os.makedirs(os.path.expanduser("~") + '/.d4cplugin/')
@@ -205,8 +207,11 @@ class Ui_ShowSites(object):
             
             # Vérifier si la nouvelle entrée est identique à une entrée existante
             for site_info in data["saved_sites"]["sites"]:
-                mdp = self.fernet.decrypt(site_info.get("password")[1:-1])
-                mdp = mdp.decode('utf-8')
+                if site_info.get("password") != '':
+                    mdp = self.fernet.decrypt(site_info.get("password")[1:-1])
+                    mdp = mdp.decode('utf-8')
+                else:
+                    mdp = ''
                 
                 if site_info.get("site_url") == siteUrl and site_info.get("username") == user and site_info.get("name") == siteName and mdp == pwd:
                 # Si l'entrée est identique, ne la sauvegarde pas à nouveau
@@ -242,9 +247,13 @@ class Ui_ShowSites(object):
             username = data['saved_sites']['sites'][siteNb]['username']
             password = data['saved_sites']['sites'][siteNb]['password']
             
-            mdp = self.fernet.decrypt(password[1:-1])
-            mdp = mdp.decode('utf-8')
-            password = mdp
+            if password == '':
+                password = ''
+            else:
+
+                mdp = self.fernet.decrypt(password[1:-1])
+                mdp = mdp.decode('utf-8')
+                password = mdp
 
             self.windowEdit2 = QtWidgets.QDialog()
             self.uiEdit2 = Ui_EditSites()

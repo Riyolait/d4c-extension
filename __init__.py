@@ -31,12 +31,13 @@ def classFactory(iface):  # pylint: disable=invalid-name
     :param iface: A QGIS interface instance.
     :type iface: QgsInterface
     """
-    #
+    
     try:
         import importlib
         importlib.import_module('cryptography')
     except ImportError:
         import subprocess
-        subprocess.check_call(['pip', 'install', 'cryptography'])
+        subprocess.check_call(['python', '-m', 'pip', 'install', '--upgrade', 'pip'])
+        subprocess.check_call(['python', '-m', 'pip', 'install', 'cryptography'])
     from .d4c_api import d4cAPI
     return d4cAPI(iface)

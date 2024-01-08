@@ -1,5 +1,6 @@
 <RCC>
     <qresource prefix="/plugins/d4c_api" >
         <file>icon.png</file>
+        <file>param_icon.png</file>
     </qresource>
 </RCC>

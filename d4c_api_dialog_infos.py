@@ -91,10 +91,12 @@ class Ui_showInfos(object):
         self.datasetUrlfield.setHorizontalScrollBarPolicy(QtCore.Qt.ScrollBarAsNeeded)
         self.datasetUrlfield.setReadOnly(True)
         self.datasetUrlfield.setObjectName("datasetUrlfield")
+        self.pushChangeMD = QtWidgets.QPushButton(showInfos)
+        self.pushChangeMD.setGeometry(QtCore.QRect(210, 260, 131, 23))
+        self.pushChangeMD.setObjectName("pushChangeMD")
 
         self.retranslateUi(showInfos)
         QtCore.QMetaObject.connectSlotsByName(showInfos)
-
 
     def retranslateUi(self, showInfos):
         _translate = QtCore.QCoreApplication.translate
@@ -107,3 +109,4 @@ class Ui_showInfos(object):
         self.label_8.setText(_translate("showInfos", "Licence"))
         self.label_11.setText(_translate("showInfos", "URL"))
         self.label_7.setText(_translate("showInfos", "Organisation"))
+        self.pushChangeMD.setText(_translate("showInfos", "Modifier les métadonnées"))

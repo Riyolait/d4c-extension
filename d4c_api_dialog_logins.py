@@ -17,7 +17,7 @@ import json
 import requests
 
 class LoginsWindow(QObject):
-        loginsEntered = QtCore.pyqtSignal(str, str, str, bool)
+        loginsEntered = QtCore.pyqtSignal(str, str, str, bool, str)
 
 class Ui_LoginsWindow(object):
 
@@ -141,7 +141,7 @@ class Ui_LoginsWindow(object):
         self.validLogins.setText(_translate("LoginsWindow", "Se connecter"))
         self.siteUrl.setPlaceholderText(_translate("LoginsWindow", "ex : https://website.data4citizen.com"))
         self.label_5.setText(_translate("LoginsWindow", "Utilisateur:"))
-        self.label_7.setText(_translate("LoginsWindow", "Sites enregistrées :"))
+        self.label_7.setText(_translate("LoginsWindow", "Sites enregistrés :"))
         self.validLoadedSite.setText(_translate("LoginsWindow", "Se connecter"))
         self.pushEditsites.setText(_translate("LoginsWindow", "Gérer les sites"))
 
@@ -174,13 +174,17 @@ class Ui_LoginsWindow(object):
         headers = {
         'Content-Type': 'application/x-www-form-urlencoded',  # Specify the data format (optional)
         }
+        # Check if the url is a valid url
+        try:
 
-        url = site + '/d4c/api/v1/dataset/find'
-        response = requests.post(url, data=data, headers=headers, auth=auth)
-        if response.status_code == 200:
-            self.logins_window.loginsEntered.emit(site, user, pwd, False)
-        else:
-            self.show_error_message('Erreur lors de la connexion au site. Vérifiez vos identifiants.')
+            url = site + '/d4c/api/v1/dataset/find'
+            response = requests.post(url, data=data, headers=headers, auth=auth)
+            if response.status_code == 200:
+                self.logins_window.loginsEntered.emit(site, user, pwd, False, 'Nouvelle session : ' + user)
+            else:
+                self.show_error_message('Erreur lors de la connexion au site. Vérifiez vos identifiants.')
+        except:
+            self.show_error_message('Erreur lors de la connexion au site. Vérifiez l\'URL du site.')
             
 
 
@@ -192,10 +196,11 @@ class Ui_LoginsWindow(object):
         with open(sites_file_path, 'r') as json_file:
             data = json.load(json_file)
             sit = data['saved_sites']['sites'][item]['site_url']
+            name = data['saved_sites']['sites'][item]['name']
             usr = data['saved_sites']['sites'][item]['username']
             pwd = data['saved_sites']['sites'][item]['password']
 
-        self.logins_window.loginsEntered.emit(sit, usr, pwd, True)
+        self.logins_window.loginsEntered.emit(sit, usr, pwd, True, name)
 
 
     def openEditSites(self):
