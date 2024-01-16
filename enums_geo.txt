@@ -1,0 +1,17 @@
+geo_point_2d
+coordonnees
+coordonnées
+geoloc
+geo_point
+coordin
+coordon
+geopoint
+geoPoint
+pav_positiont2d
+wgs84
+equgpsy_x
+geoban
+codegeo
+latlon
+lat_lon
+geolocalisation

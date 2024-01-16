@@ -108,7 +108,7 @@ class Ui_LoginsWindow(object):
         self.validLogins.setObjectName("validLogins")
 
         self.pushEditsites = QtWidgets.QPushButton(LoginsWindow)
-        self.pushEditsites.setGeometry(QtCore.QRect(180, 340, 91, 31))
+        self.pushEditsites.setGeometry(QtCore.QRect(140, 340, 91, 31))
         self.pushEditsites.setObjectName("pushEditsites")
 
         self.label_7 = QtWidgets.QLabel(LoginsWindow)

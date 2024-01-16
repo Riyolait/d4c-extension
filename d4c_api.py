@@ -44,11 +44,13 @@ from .d4c_api_dialog_searchdataset import Ui_searchDataset
 from .d4c_api_dialog_params import Ui_Params
 from .d4c_api_dialog_changemetadatas import Ui_changeMetadatas
 from .d4c_api_dialog_multiple_import import Ui_DialogImport
+from .d4c_api_dialog_geoparams import Ui_GeoParams
+from .d4c_api_dialog_deletegeoparam import Ui_DeleteGeoParam
 import os
 import requests
 import json
 import subprocess
-
+import shutil
 ## Import de Cryptography, si non installé, l'installe
 import importlib
 
@@ -121,6 +123,26 @@ class d4cAPI:
                 data = json.load(json_file)
                 self.lang = data['lang']
                 self.saveFile_folder = data['folder_path']
+
+        # Déplacer les fichiers enums
+        if os.path.exists(self.plugin_dir + '/enums_geo.txt'):
+            if not(os.path.exists(os.path.expanduser('~/.d4cplugin/enums_geo.txt'))):
+                shutil.move(self.plugin_dir + '/enums_geo.txt', os.path.expanduser('~/.d4cplugin'))
+            else:
+                os.remove(self.plugin_dir + '/enums_geo.txt')
+        
+        if os.path.exists(self.plugin_dir + '/enums_tuple_geo.txt'):
+            if not(os.path.exists(os.path.expanduser('~/.d4cplugin/enums_tuple_geo.txt'))):
+                shutil.move(self.plugin_dir + '/enums_tuple_geo.txt', os.path.expanduser('~/.d4cplugin'))
+            else:
+                os.remove(self.plugin_dir + '/enums_tuple_geo.txt')
+        
+        if os.path.exists(self.plugin_dir + '/enums_cache_jdd.txt'):
+            if not(os.path.exists(os.path.expanduser('~/.d4cplugin/enums_cache_jdd.txt'))):
+                shutil.move(self.plugin_dir + '/enums_cache_jdd.txt', os.path.expanduser('~/.d4cplugin'))
+            else:
+                os.remove(self.plugin_dir + '/enums_cache_jdd.txt')
+            
         
         self.loadTranslation(self.lang)  # Charge la traduction française par défaut
         if self.lang == 'fr':
@@ -179,8 +201,8 @@ class d4cAPI:
 
 
         # Enumération des noms de colonnes géographiques (à compléter)
-        self.enumNameColumnGeo = ['geo_point_2d','coordonnees',"coordonnées",'geoloc','geo_point','coordin','coordon','geopoint','geoPoint','pav_positiont2d','wgs84','equgpsy_x','geoban','codegeo','latlon','lat_lon','geolocalisation']
-        self.liste_tuples_geo = [('latitude', 'longitude'), ('lat', 'lon'), ('lat', 'lng'), ('lat', 'long'), ('lat_x', 'lon_y'), ('xlat','ylong')]
+        #self.enumNameColumnGeo = ['geo_point_2d','coordonnees',"coordonnées",'geoloc','geo_point','coordin','coordon','geopoint','geoPoint','pav_positiont2d','wgs84','equgpsy_x','geoban','codegeo','latlon','lat_lon','geolocalisation']
+        #self.liste_tuples_geo = [('latitude', 'longitude'), ('lat', 'lon'), ('lat', 'lng'), ('lat', 'long'), ('lat_x', 'lon_y'), ('xlat','ylong')]
     
     
     def loadTranslation(self, locale):
@@ -458,11 +480,11 @@ class d4cAPI:
             self.dlg.pushAbout.clicked.connect(self.openAbout)
             self.dlg.pushHelp.clicked.connect(self.openHelp)
             self.dlg.clearHistory.clicked.connect(self.clearHistory)
+            
             self.dlg.tabWidget.currentChanged.connect(self.updateManipulateCB)
             self.dlg.comboBoxLayer1F.currentIndexChanged.connect(self.addLayer1F)
             self.dlg.comboBoxLayer2F.currentIndexChanged.connect(self.addLayer2F)
-            self.dlg.comboBoxLayer1F.currentIndexChanged.connect(self.setFusionEnabled)
-            self.dlg.comboBoxLayer2F.currentIndexChanged.connect(self.setFusionEnabled)
+            self.dlg.pushRefreshlastImport.clicked.connect(self.updateLastimportedfiles)
             self.dlg.pushAddLayerF.clicked.connect(self.addLayerFPlus)
             self.dlg.pushRemoveLayerF.clicked.connect(self.removeSelectedLayerF)
             self.dlg.pushCreateLayerF.clicked.connect(self.createLayerF)
@@ -487,6 +509,9 @@ class d4cAPI:
             self.dlg.listOpenData.itemSelectionChanged.connect(self.displayOpenDataResources)
             self.dlg.searchOpenData.textChanged.connect(self.searchBarOpenData)
 
+            self.dlg.pushSetGeoParams.clicked.connect(self.openGeoParams)
+            self.dlg.pushSetGeoParams_2.clicked.connect(self.openGeoParams)
+            self.dlg.pushSetGeoParams_3.clicked.connect(self.openGeoParams)
             # Changement des langues
             if self.lang == 'fr':
                 self.dlg.languageBox.setCurrentIndex(0)
@@ -538,6 +563,7 @@ class d4cAPI:
         self.dlg.pushInfos.setEnabled(True)
         self.dlg.checkPrevisu.setEnabled(True)
         self.dlg.clearHistory.setEnabled(True)
+        
 
 
     def disableSearchButtons(self):
@@ -548,6 +574,7 @@ class d4cAPI:
         self.dlg.exportLine.setEnabled(False)
         self.dlg.pushDisplayAllDatasets.setEnabled(False)
         self.dlg.pushDisplayAllDatasets2.setEnabled(False)
+
 
 
     def enableSearchButtons(self):
@@ -584,7 +611,7 @@ class d4cAPI:
         data_gouv_icon_path = os.path.join(self.plugin_dir, 'img', 'data_gouv_icon.png')
         ods_icon_path = os.path.join(self.plugin_dir, 'img', 'ods_icon.png')
         ckan_icon_path = os.path.join(self.plugin_dir, 'img', 'ckan_icon.png')
-        
+        geoloc_icon_path = os.path.join(self.plugin_dir, 'img', 'geoloc_icon.png')
         # Init Icons
         arrow_bottom = QIcon(arrow_bottom_icon_path)
         arrow_double = QIcon(arrow_double_icon_path)
@@ -606,6 +633,7 @@ class d4cAPI:
         ods_icon = QIcon(ods_icon_path)
         ckan_icon = QIcon(ckan_icon_path)
         d4c_icon = QIcon(d4c_icon_path)
+        geoloc_icon = QIcon(geoloc_icon_path)
 
 
 
@@ -635,6 +663,10 @@ class d4cAPI:
         self.dlg.radioODS.setIcon(ods_icon)
         self.dlg.radioCKAN.setIcon(ckan_icon)
         self.dlg.radioD4C.setIcon(d4c_icon)
+        self.dlg.pushSetGeoParams.setIcon(geoloc_icon)
+        self.dlg.pushSetGeoParams_2.setIcon(geoloc_icon)
+        self.dlg.pushSetGeoParams_3.setIcon(geoloc_icon)
+
         # Set plugin version
         #self.dlg.label_pluginversion.setText('Version du plugin : v1.2')
         
@@ -922,6 +954,13 @@ class d4cAPI:
         layer_name = file_name
         vl = None
         csv_layer = QgsVectorLayer(destination_path, layer_name, "ogr")
+        # Lire les énumérations de strings
+        with open(os.path.expanduser('~/.d4cplugin') + '/enums_geo.txt', 'r') as file:
+            enum_strings = [line.strip() for line in file]
+
+        # Lire les énumérations de tuples
+        with open(os.path.expanduser('~/.d4cplugin') + '/enums_tuple_geo.txt', 'r') as file:
+            enum_tuples = [tuple(line.strip().split(',')) for line in file]
 
         if not csv_layer.isValid():
             self.show_error_message(self.tr("Erreur de chargement de la couche !"))
@@ -962,6 +1001,8 @@ class d4cAPI:
                         vl = QgsVectorLayer("MultiPolygon?crs=EPSG:4326", f"{layer_name}", "memory")
                     elif json.loads(row[colname]).get("type") == "MultiLineString":
                         vl = QgsVectorLayer("MultiLineString?crs=EPSG:4326", f"{layer_name}", "memory")
+                    elif json.loads(row[colname]).get("type") == "MultiPoint":
+                        vl = QgsVectorLayer("MultiPoint?crs=EPSG:4326", f"{layer_name}", "memory")
                     vl.dataProvider().addAttributes(fields)
                     vl.updateFields()
                     vl.startEditing()
@@ -994,11 +1035,59 @@ class d4cAPI:
                 else:
                     # Variable qui permet de savoir si une colonne pour les coordonnées existe
                     has_geo = False
-                    # On cherche si une colonne pour les coordonnées existe
-                    for columnGeoName in self.enumNameColumnGeo:
-                        if columnGeoName in csv_data[0]:
-                            columnName = columnGeoName
-                            has_geo = True
+                    pair_geo = None
+                    columnName = None
+                    ## Si il existe un cache pour le fichier
+                    if self.dlg.tabWidget.currentIndex() == 0:
+                        datasetID = self.dlg.datasetId.toPlainText()
+                        resourceID = self.dlg.resourcesList.currentItem().text()
+                        siteField = self.dlg.siteField.toPlainText()
+
+                        cache_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_cache_jdd.txt'
+                        with open(cache_file_path, 'r') as fichier:
+                            lignes_cache = fichier.readlines()
+                        
+                        if lignes_cache: 
+                            for ligne in lignes_cache:
+                                if ligne.split('!!')[1] == datasetID and ligne.split('!!')[2] == resourceID and ligne.split('!!')[3] == siteField:
+                                    has_geo = True
+                                    if ligne.split('!!')[0] == '1':
+                                        pair_geo = (ligne.split('!!')[4].split(',')[0], ligne.split('!!')[4].split(',')[1].replace('\n',''))
+                                    else:
+                                        columnName = ligne.split('!!')[4]
+
+                    elif self.dlg.tabWidget.currentIndex() == 3:
+            
+                        datasetID = self.dlg.listOpenData.currentItem().text()
+                        resourceID = self.dlg.listResourceOpenData.currentItem().text()
+                        if self.dlg.radioDataGouvOrga.isChecked():
+                            ODsource = 'data.gouv.fr'
+                        elif self.dlg.radioD4C.isChecked():
+                            ODsource = 'Data4Citizen'
+                        elif self.dlg.radioODS.isChecked():
+                            ODsource = 'ODS'
+                        elif self.dlg.radioCKAN.isChecked():
+                            ODsource = 'CKAN'
+
+                        cache_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_cache_jdd.txt'
+                        with open(cache_file_path, 'r') as fichier:
+                            lignes_cache = fichier.readlines()
+                        
+                        if lignes_cache: 
+                            for ligne in lignes_cache:
+                                if ligne.split('!!')[1] == datasetID and ligne.split('!!')[2] == resourceID and ligne.split('!!')[3] == ODsource:
+                                    has_geo = True
+                                    if ligne.split('!!')[0] == '1':
+                                        pair_geo = (ligne.split('!!')[4].split(',')[0], ligne.split('!!')[4].split(',')[1].replace('\n',''))
+                                    else:
+                                        columnName = ligne.split('!!')[4]
+
+                    if not has_geo: 
+                        # On cherche si une colonne pour les coordonnées existe dans l'énum
+                        for columnGeoName in enum_strings:
+                            if columnGeoName in csv_data[0]:
+                                columnName = columnGeoName
+                                has_geo = True
                             # Créez une couche vectorielle vide
                             fields = QgsFields()
                             for key, value in csv_data[0].items():
@@ -1032,11 +1121,80 @@ class d4cAPI:
 
                             vl.commitChanges() 
                             break
+                    else:
+                        if columnName is not None:
+                            # Créez une couche vectorielle vide
+                            fields = QgsFields()
+                            for key, value in csv_data[0].items():
+                                if key != columnName:
+                                    fields.append(QgsField(key, QVariant.String))
+                            vl = QgsVectorLayer("Point?crs=EPSG:4326", f"{layer_name}", "memory")
+                            vl.dataProvider().addAttributes(fields)
+                            vl.updateFields()
+                            vl.startEditing()
+
+                            i = 1
+                            for row in csv_data:
+
+                                wkt_data = row[columnName]
+                                if wkt_data != '' and wkt_data != None and wkt_data != 'null':
+                                    wkt_data = self.geojson_to_wkt(list(eval(wkt_data)))
+                                    
+                                    geometry = QgsGeometry.fromWkt(wkt_data)
+                                    if not geometry.isEmpty():
+                                        feature = QgsFeature()
+                                        feature.setGeometry(geometry)   
+                                        vl.dataProvider().addFeature(feature)
+                                        feature = vl.getFeature(i)
+                                        # Ajoutez les valeurs des autres colonnes à l'entité
+                                        for key, value in row.items():
+                                            if key != columnName:
+                                                # Créez des champs pour les autres colonnes (s'ils n'existent pas déjà)
+                                                # Définissez la valeur du champ
+                                                vl.dataProvider().changeAttributeValues({feature.id(): {vl.fields().indexFromName(key): value}})
+                                i += 1
+
+                            vl.commitChanges()
+                        else:
+                            # Créez une couche vectorielle vide
+                            fields = QgsFields()
+                            for key, value in csv_data[0].items():
+                                if key != pair_geo[0] and key != pair_geo[1]:
+                                    fields.append(QgsField(key, QVariant.String))
+
+
+                            vl = QgsVectorLayer("Point?crs=EPSG:4326", f"{layer_name}", "memory")
+                            vl.dataProvider().addAttributes(fields)
+                            vl.updateFields()
+                            vl.startEditing()
+
+                            i = 1
+                            for row in csv_data:
+                                wkt_data = [row[pair_geo[0]].replace(',','.'), row[pair_geo[1]].replace(',','.')]
+                                
+                                if wkt_data != '' and wkt_data != None and wkt_data != 'null':
+                                    wkt_data = self.geojson_to_wkt(wkt_data)
+                                    
+                                    geometry = QgsGeometry.fromWkt(wkt_data)
+                                    if not geometry.isEmpty():
+                                        feature = QgsFeature()
+                                        feature.setGeometry(geometry)   
+                                        vl.dataProvider().addFeature(feature)
+                                        feature = vl.getFeature(i)
+                                        # Ajoutez les valeurs des autres colonnes à l'entité
+                                        for key, value in row.items():
+                                            if key != pair_geo[0] and key != pair_geo[1]:
+                                                # Créez des champs pour les autres colonnes (s'ils n'existent pas déjà)
+                                                # Définissez la valeur du champ
+                                                vl.dataProvider().changeAttributeValues({feature.id(): {vl.fields().indexFromName(key): value}})
+                                i += 1
+
+                            vl.commitChanges()
 
                     # On cherche si une colonne pour les coordonnées existe en 2 colonne (longitude et latitude)
                     if not has_geo:
                         pair_geo = None
-                        for pair in self.liste_tuples_geo:
+                        for pair in enum_tuples:
                             if pair[0] in csv_data[0] and pair[1] in csv_data[0]:
                                 pair_geo = pair
                                 break
@@ -1048,6 +1206,7 @@ class d4cAPI:
                                 if key != pair_geo[0] and key != pair_geo[1]:
                                     fields.append(QgsField(key, QVariant.String))
 
+
                             vl = QgsVectorLayer("Point?crs=EPSG:4326", f"{layer_name}", "memory")
                             vl.dataProvider().addAttributes(fields)
                             vl.updateFields()
@@ -1055,7 +1214,8 @@ class d4cAPI:
 
                             i = 1
                             for row in csv_data:
-                                wkt_data = [row[pair_geo[0]], row[pair_geo[1]]]
+                                wkt_data = [row[pair_geo[0]].replace(',','.'), row[pair_geo[1]].replace(',','.')]
+                                
                                 if wkt_data != '' and wkt_data != None and wkt_data != 'null':
                                     wkt_data = self.geojson_to_wkt(wkt_data)
                                     
@@ -1083,6 +1243,12 @@ class d4cAPI:
         if vl is not None:
             # Ajoutez la couche au projet QGIS
             QgsProject.instance().addMapLayer(vl)
+            
+            # Enlever le fichier csv qui n'a pas de géométrie
+            for layer in QgsProject.instance().mapLayers().values():
+                if layer.name() == layer_name and str(layer.geometryType()) == 'GeometryType.Null':
+                    QgsProject.instance().removeMapLayer(layer)
+                    break
         
     def geojson_to_wkt(self, geojson):
         if type(geojson) is list:
@@ -3125,11 +3291,9 @@ class d4cAPI:
         self.dlg.comboBoxLayer1F.setCurrentIndex(-1)
         self.dlg.comboBoxLayer2F.setCurrentIndex(-1)
         self.dlg.comboBoxLayerFPlus.setCurrentIndex(-1)
-        self.dlg.comboBoxLayer2F.setEnabled(False)
-        self.dlg.comboBoxLayerFPlus.setEnabled(False)
-        self.dlg.pushAddLayerF.setEnabled(False)
-        self.dlg.comboBoxOperation.setEnabled(False)
-        self.dlg.pushCreateLayerF.setEnabled(False)
+        self.dlg.comboBoxOperation.setCurrentIndex(0)
+        self.dlg.checkCentroid.setEnabled(False)
+        self.dlg.checkCentroid.setChecked(False)
 
     # Ajout du 1er layer dans la liste
     def addLayer1F(self):
@@ -3180,9 +3344,7 @@ class d4cAPI:
                             self.dlg.comboBoxLayer2F.addItem(icon, item)
 
         self.dlg.comboBoxLayer2F.setCurrentIndex(-1)
-        self.dlg.comboBoxLayer2F.setEnabled(True) 
         self.dlg.comboBoxLayerFPlus.clear()
-        self.dlg.comboBoxLayerFPlus.setEnabled(False)
     
    
     # Ajout du 2e layer dans la liste
@@ -3230,24 +3392,22 @@ class d4cAPI:
 
                             self.dlg.comboBoxLayerFPlus.addItem(icon, item)
         
-        
-        self.dlg.comboBoxLayerFPlus.setEnabled(True)
-        self.dlg.pushAddLayerF.setEnabled(True)
-        self.dlg.comboBoxOperation.setEnabled(True)
+    
             
     # Ajouter des layers supplémentaires
     def addLayerFPlus(self):
         self.dlg.layersListF.addItem(self.dlg.comboBoxLayerFPlus.currentText())
         self.removeLayerFromComboBox(self.dlg.comboBoxLayerFPlus.currentText(), self.dlg.comboBoxLayerFPlus)
-        self.dlg.pushRemoveLayerF.setEnabled(True)
 
     #Supprimer un layer de la liste
     def removeSelectedLayerF(self):
         index = self.dlg.layersListF.currentRow()
+        if index == -1:
+            self.show_info_message(self.tr('Veuillez sélectionner une couche à supprimer !'))
+            return
         text = self.dlg.layersListF.item(index).text()
         if index > 1:
             self.dlg.layersListF.takeItem(index)
-
         dot_icon = QIcon(os.path.join(self.plugin_dir, 'img', 'dot_icon.png'))
         shape_icon = QIcon(os.path.join(self.plugin_dir, 'img', 'shape_icon.png'))
         line_icon = QIcon(os.path.join(self.plugin_dir, 'img', 'line_icon.png'))
@@ -3267,22 +3427,6 @@ class d4cAPI:
             if text == self.dlg.layersListF.item(i).text():
                 return True
         return False
-    
-    # Active la fusion
-    def setFusionEnabled(self):
-        if self.dlg.layersListF.count() > 1:
-            if self.dlg.comboBoxLayer1F.currentIndex() != -1 and self.dlg.comboBoxLayer2F.currentIndex() != -1:
-                self.dlg.pushCreateLayerF.setEnabled(True)
-                self.dlg.label_19.setEnabled(True)
-                self.dlg.layerNameF.setEnabled(True)
-            else:
-                self.dlg.pushCreateLayerF.setEnabled(False)
-                self.dlg.label_19.setEnabled(False)
-                self.dlg.layerNameF.setEnabled(False)
-        else:
-            self.dlg.pushCreateLayerF.setEnabled(False)
-            self.dlg.label_19.setEnabled(False)
-            self.dlg.layerNameF.setEnabled(False)
 
     
     def createLayerF(self):
@@ -3333,22 +3477,25 @@ class d4cAPI:
             'OUTPUT': result_layer_path
         }
         # Exécuter l'algorithme de fusion
-        # try:
+        try:
+            if QgsProject.instance().mapLayersByName(self.dlg.layerNameF.text()):
+                self.show_error_message(self.tr('Une couche avec ce nom existe déjà'))
+                return
+            Processing.runAlgorithm("native:mergevectorlayers", parameters)
+            # Ajouter la couche fusionnée à la carte de QGIS
             
-        Processing.runAlgorithm("native:mergevectorlayers", parameters)
-        # Ajouter la couche fusionnée à la carte de QGIS
-        if self.dlg.layerNameF.text() in list(QgsProject.instance().mapLayersByName().keys()):
-            self.show_error_message(self.tr('Une couche avec ce nom existe déjà'))
-            return
-        result_layer = QgsVectorLayer(result_layer_path, self.dlg.layerNameF.text() , 'ogr')
-        
-        if result_layer.isValid():
-            QgsProject.instance().addMapLayer(result_layer)
-            self.show_success_message(self.tr('Couche fusionnée créée avec succès'))
+            result_layer = QgsVectorLayer(result_layer_path, self.dlg.layerNameF.text() , 'ogr')
+            
+            if result_layer.isValid():
+                QgsProject.instance().addMapLayer(result_layer)
+                self.show_success_message(self.tr('Couche fusionnée créée avec succès'))
                 
-        # except Exception as e:
-        #     self.show_error_message(self.tr('Erreur lors de la fusion des couches, vérifier que les couches sont compatibles'))
-        #     return
+                    
+        except Exception as e:
+            self.show_error_message(self.tr(f'Erreur lors de la fusion des couches, vérifier que les couches sont compatibles. {e}'))
+            # delete the file in the folder
+            os.remove(result_layer_path)
+            return
     
 
     def difference_couches_couche(self, result_layer_path, layers):
@@ -3367,20 +3514,22 @@ class d4cAPI:
         }
         # Exécuter l'algorithme de différence
         try:
-            
-            Processing.runAlgorithm("native:difference", parameters)
-            # Ajouter la couche calculée à la carte de QGIS
-            if self.dlg.layerNameF.text() in list(QgsProject.instance().mapLayersByName().keys()):
+            if QgsProject.instance().mapLayersByName(self.dlg.layerNameF.text()):
                 self.show_error_message(self.tr('Une couche avec ce nom existe déjà'))
                 return
+            Processing.runAlgorithm("native:difference", parameters)
+            # Ajouter la couche calculée à la carte de QGIS
+            
             result_layer = QgsVectorLayer(result_layer_path, self.dlg.layerNameF.text() , 'ogr')
             
             if result_layer.isValid():
                 QgsProject.instance().addMapLayer(result_layer)
-                self.show_success_message(self.tr('Différence créée avec succès'))
+                self.show_success_message(self.tr('Différence créée avec succès'))                
                 
         except Exception as e:
-            self.show_error_message(self.tr('Erreur lors de la différence des couches, vérifier que les couches sont compatibles'))
+            self.show_error_message(self.tr(f'Erreur lors de la différence des couches, vérifier que les couches sont compatibles. {e}'))
+            # delete the file in the folder
+            os.remove(result_layer_path)
             return
         
 
@@ -3400,20 +3549,24 @@ class d4cAPI:
         }
         # Exécuter l'algorithme d'union
         try:
-            
-            Processing.runAlgorithm("native:union", parameters)
-            # Ajouter la couche calculée à la carte de QGIS
-            if self.dlg.layerNameF.text() in list(QgsProject.instance().mapLayersByName().keys()):
+            if QgsProject.instance().mapLayersByName(self.dlg.layerNameF.text()):
+                
                 self.show_error_message(self.tr('Une couche avec ce nom existe déjà'))
                 return
+            Processing.runAlgorithm("native:union", parameters)
+            # Ajouter la couche calculée à la carte de QGIS
+            
             result_layer = QgsVectorLayer(result_layer_path, self.dlg.layerNameF.text() , 'ogr')
             
             if result_layer.isValid():
                 QgsProject.instance().addMapLayer(result_layer)
                 self.show_success_message(self.tr('Union créée avec succès'))
                 
+                
         except Exception as e:
-            self.show_error_message(self.tr('Erreur lors de l\'union des couches, vérifier que les couches sont compatibles'))
+            self.show_error_message(self.tr(f'Erreur lors de l\'union des couches, vérifier que les couches sont compatibles. {e}'))
+            # delete the file in the folder
+            os.remove(result_layer_path)
             return
         
 
@@ -3433,12 +3586,13 @@ class d4cAPI:
         }
         # Exécuter l'algorithme d'intersection
         try:
-            
-            Processing.runAlgorithm("native:intersection", parameters)
-            # Ajouter la couche calculée à la carte de QGIS
-            if self.dlg.layerNameF.text() in list(QgsProject.instance().mapLayersByName().keys()):
+            if QgsProject.instance().mapLayersByName(self.dlg.layerNameF.text()):
+                
                 self.show_error_message(self.tr('Une couche avec ce nom existe déjà'))
                 return
+            Processing.runAlgorithm("native:intersection", parameters)
+            # Ajouter la couche calculée à la carte de QGIS
+            
             result_layer = QgsVectorLayer(result_layer_path, self.dlg.layerNameF.text() , 'ogr')
             
             if result_layer.isValid():
@@ -3446,7 +3600,8 @@ class d4cAPI:
                 self.show_success_message(self.tr('Intersection créée avec succès'))
                 
         except Exception as e:
-            self.show_error_message(self.tr('Erreur lors de l\'intersection des couches, vérifier que les couches sont compatibles'))
+            self.show_error_message(self.tr(f'Erreur lors de l\'intersection des couches, vérifier que les couches sont compatibles. {e}'))
+            os.remove(result_layer_path)
             return
         
     def centroids_couches_couche(self, result_layer_path, layer, all_parts):
@@ -3466,19 +3621,23 @@ class d4cAPI:
         # Exécuter l'algorithme de centroide
         try:
             
-            Processing.runAlgorithm("native:centroids", parameters)
-            # Ajouter la couche calculée à la carte de QGIS
-            if self.dlg.layerNameF.text() in list(QgsProject.instance().mapLayersByName().keys()):
+            if QgsProject.instance().mapLayersByName(self.dlg.layerNameF.text()):
+                
                 self.show_error_message(self.tr('Une couche avec ce nom existe déjà'))
                 return
+            Processing.runAlgorithm("native:centroids", parameters)
+            # Ajouter la couche calculée à la carte de QGIS
+            
             result_layer = QgsVectorLayer(result_layer_path, self.dlg.layerNameF.text() , 'ogr')
             
             if result_layer.isValid():
                 QgsProject.instance().addMapLayer(result_layer)
-                self.show_success_message(self.tr('Centroïde créée avec succès'))
+                self.show_success_message(self.tr('Centroïde créée avec succès'))                
                 
         except Exception as e:
-            self.show_error_message(self.tr('Erreur lors du calcul des centroides'))
+            self.show_error_message(self.tr(f'Erreur lors du calcul des centroides. {e}'))
+            # delete the file in the folder
+            os.remove(result_layer_path)
             return
 
     def removeLayerFromComboBox(self, layer_name, combo_box):
@@ -3496,20 +3655,10 @@ class d4cAPI:
 
     def displayCheckCentroid(self):
         if self.dlg.comboBoxOperation.currentIndex() == 4:
-            if self.dlg.layersListF.item(1).text() != "":
-                 self.dlg.pushCreateLayerF.setEnabled(False)
-            else:
-                self.dlg.checkCentroid.setEnabled(True)
-                self.dlg.pushCreateLayerF.setEnabled(True)
-                self.dlg.layerNameF.setEnabled(True)
-                self.dlg.label_19.setEnabled(True)
-        elif self.dlg.comboBoxOperation.currentIndex() != 4 and self.dlg.comboBoxLayer1F.currentIndex() == -1 and self.dlg.comboBoxLayer2F.currentIndex() == -1:
-            self.dlg.checkCentroid.setEnabled(False)
-            self.dlg.pushCreateLayerF.setEnabled(False)
-            self.dlg.layerNameF.setEnabled(False)
-            self.dlg.label_19.setEnabled(False)
+            self.dlg.checkCentroid.setEnabled(True)
         else:
             self.dlg.checkCentroid.setEnabled(False)
+            self.dlg.checkCentroid.setChecked(False)
 
 
     def searchOpenDatas(self):
@@ -3596,8 +3745,10 @@ class d4cAPI:
             data = json.load(json_file)
             site_url = data["sites"][site_index]["site_url"]
         
-        url = site_url + '/d4c/api/datasets/2.0/search/?q=' + self.dlg.searchParamsOpenData.text()
-
+        if site_url == 'https://data.libourne.fr':
+            url = site_url + '/api/datasets/2.0/search/?q=' + self.dlg.searchParamsOpenData.text() + '&rows=500'
+        else:
+            url = site_url + '/d4c/api/datasets/2.0/search/?q=' + self.dlg.searchParamsOpenData.text() + '&rows=500'
         try:
             response = requests.get(url)
             if response.status_code == 200:
@@ -4005,3 +4156,309 @@ class d4cAPI:
                 item.setHidden(False)
             else:
                 item.setHidden(True)
+
+
+    def openGeoParams(self):
+        self.windowGeoParams = QtWidgets.QDialog()
+        self.uiGeoParams = Ui_GeoParams()
+        self.uiGeoParams.setupUi(self.windowGeoParams)
+
+        self.uiGeoParams.lineGeo2.setHidden(True)
+        self.uiGeoParams.label_lon.setHidden(True)
+        
+        # Récupérer les headers du tablewidget 
+        for i in range(self.dlg.tableWidget.columnCount()):
+            if self.dlg.tableWidget.horizontalHeaderItem(i):
+                self.uiGeoParams.lineGeo1.addItem(self.dlg.tableWidget.horizontalHeaderItem(i).text())
+                self.uiGeoParams.lineGeo2.addItem(self.dlg.tableWidget.horizontalHeaderItem(i).text())
+       
+        
+        self.uiGeoParams.pushAddGeoParam.clicked.connect(self.addGeoParam)
+        self.uiGeoParams.comboColumnType.currentIndexChanged.connect(self.geoParamsColumnTypeChanged)
+        self.uiGeoParams.pushCancel.clicked.connect(self.windowGeoParams.close)
+        self.uiGeoParams.pushDeleteWord.clicked.connect(self.openDeleteGeoParam)
+        
+        
+        #Mettre les paramètres de la géolocalisation si ils sont enregistrés
+        if self.dlg.tabWidget.currentIndex() == 0:
+            datasetID = self.dlg.datasetId.toPlainText()
+            resourceID = self.dlg.resourcesList.currentItem().text()
+            siteField = self.dlg.siteField.toPlainText()
+
+            cache_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_cache_jdd.txt'
+            with open(cache_file_path, 'r') as fichier:
+                lignes_cache = fichier.readlines()
+            
+            if lignes_cache: 
+                for ligne in lignes_cache:
+                    if ligne.split('!!')[1] == datasetID and ligne.split('!!')[2] == resourceID and ligne.split('!!')[3] == siteField:
+                        if ligne.split('!!')[0] == '1':
+                            self.uiGeoParams.comboColumnType.setCurrentIndex(1)
+
+                            self.uiGeoParams.lineGeo1.setCurrentText(ligne.split('!!')[4].split(',')[0])
+                            self.uiGeoParams.lineGeo2.setCurrentText(ligne.split('!!')[4].split(',')[1].replace('\n', ''))
+                            
+                        else:
+                            self.uiGeoParams.lineGeo1.setCurrentText(ligne.split('!!')[4])
+        elif self.dlg.tabWidget.currentIndex() == 3:
+            
+            datasetID = self.dlg.listOpenData.currentItem().text()
+            resourceID = self.dlg.listResourceOpenData.currentItem().text()
+            if self.dlg.radioDataGouvOrga.isChecked():
+                ODsource = 'data.gouv.fr'
+            elif self.dlg.radioD4C.isChecked():
+                ODsource = 'Data4Citizen'
+            elif self.dlg.radioODS.isChecked():
+                ODsource = 'ODS'
+            elif self.dlg.radioCKAN.isChecked():
+                ODsource = 'CKAN'
+
+            cache_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_cache_jdd.txt'
+            with open(cache_file_path, 'r') as fichier:
+                lignes_cache = fichier.readlines()
+            
+            if lignes_cache: 
+                for ligne in lignes_cache:
+                    if ligne.split('!!')[1] == datasetID and ligne.split('!!')[2] == resourceID and ligne.split('!!')[3] == ODsource:
+                        if ligne.split('!!')[0] == '1':
+                            self.uiGeoParams.comboColumnType.setCurrentIndex(1)                            
+
+                            self.uiGeoParams.lineGeo1.setCurrentText(ligne.split('!!')[4].split(',')[0])
+                            self.uiGeoParams.lineGeo2.setCurrentText(ligne.split('!!')[4].split(',')[1].replace('\n', ''))
+
+                            
+                        else:
+                            self.uiGeoParams.lineGeo1.setCurrentText(ligne.split('!!')[4])
+
+        self.windowGeoParams.exec_()
+
+
+    def addGeoParam(self):
+        if self.uiGeoParams.comboColumnType.currentIndex() == 0:
+            
+            if self.uiGeoParams.lineGeo1.currentText() == '':
+                self.show_info_message(self.tr('Veuillez entrer un nom de colonne'))
+                return
+            
+            # Mot ou tuple à ajouter
+            geolabel = self.uiGeoParams.lineGeo1.currentText() 
+
+            # Chemin du fichier d'énumération
+            enum_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_geo.txt'
+            
+            # Lire les données actuelles du fichier
+            with open(enum_file_path, 'r') as fichier:
+                lignes = fichier.readlines()
+            
+            # Vérifier si le mot ou le tuple existe déjà
+            if geolabel + '\n' not in lignes:
+                # Ajouter le mot ou le tuple à la liste
+                lignes.append(geolabel + '\n')
+            
+            # Ajouter dans le cache
+            cache_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_cache_jdd.txt'
+
+            # Lire les données actuelles du fichier
+            with open(cache_file_path, 'r') as fichier:
+                lignes_cache = fichier.readlines()
+
+            if self.dlg.tabWidget.currentIndex() == 0:
+                # Former le cache 
+                cache = ('0' + '!!' 
+                        + self.dlg.datasetId.toPlainText() + '!!'
+                        +  self.dlg.resourcesList.currentItem().text() + '!!'
+                        + self.dlg.siteField.toPlainText() + '!!'
+                        + geolabel + '\n')
+            elif self.dlg.tabWidget.currentIndex() == 3:
+                
+                if self.dlg.radioDataGouvOrga.isChecked():
+                    ODsource = 'data.gouv.fr'
+                elif self.dlg.radioD4C.isChecked():
+                    ODsource = 'Data4Citizen'
+                elif self.dlg.radioODS.isChecked():
+                    ODsource = 'ODS'
+                elif self.dlg.radioCKAN.isChecked():
+                    ODsource = 'CKAN'
+                cache = ('0' + '!!'
+                         + self.dlg.listOpenData.currentItem().text() + '!!'
+                         + self.dlg.listResourceOpenData.currentItem().text() + '!!'
+                            + ODsource + '!!'
+                            + geolabel + '\n')
+            
+        
+            # Écrire les nouvelles données dans le fichier
+            with open(cache_file_path, 'w') as fichier:
+                if lignes_cache:
+                    for ligne in lignes_cache:
+
+                        if cache.split('!!')[1] == ligne.split('!!')[1] and cache.split('!!')[2] == ligne.split('!!')[2] and cache.split('!!')[3] == ligne.split('!!')[3]:
+                            lignes_cache.remove(ligne)
+                    if lignes_cache:
+                        fichier.writelines(lignes_cache)
+                        fichier.writelines(cache)
+                    else:
+                        fichier.writelines(cache)
+                else:
+                    fichier.writelines(cache)
+                    
+
+
+        if self.uiGeoParams.comboColumnType.currentIndex() == 1:
+
+            if self.uiGeoParams.lineGeo1.currentText() == '':
+                self.show_info_message(self.tr('Veuillez entrer un nom de colonne pour la latitude'))
+                return
+             
+            if self.uiGeoParams.lineGeo2.currentText() == '':
+                self.show_info_message(self.tr('Veuillez entrer un nom de colonne pour la longitude'))
+                return
+            
+            # Mot ou tuple à ajouter
+            if self.uiGeoParams.lineGeo1.currentText() == self.uiGeoParams.lineGeo2.currentText():
+                self.show_info_message(self.tr('Veuillez entrer des noms de colonne différents'))
+                return
+            geolabel = (self.uiGeoParams.lineGeo1.currentText(), self.uiGeoParams.lineGeo2.currentText())
+            enum_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_tuple_geo.txt'
+
+            # Lire les données actuelles du fichier
+            with open(enum_file_path, 'r') as fichier:
+                lignes = fichier.readlines()
+
+            # Convertir les chaînes en tuples
+            tuples_existants = [tuple(ligne.strip().split(',')) for ligne in lignes]
+            if geolabel not in tuples_existants:
+                # Ajouter le tuple à la liste
+                lignes.append(','.join(geolabel) + '\n')
+            
+            # Ajouter dans le cache
+            cache_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_cache_jdd.txt'
+
+            # Lire les données actuelles du fichier
+            with open(cache_file_path, 'r') as fichier:
+                lignes_cache = fichier.readlines()
+            if self.dlg.tabWidget.currentIndex() == 0:
+                
+                # Former le cache 
+                cache = ('1' + '!!' 
+                        + self.dlg.datasetId.toPlainText() + '!!'
+                        + self.dlg.resourcesList.currentItem().text() + '!!'
+                        + self.dlg.siteField.toPlainText() + '!!'
+                        + geolabel[0] + ',' + geolabel[1] + '\n')
+            
+            elif self.dlg.tabWidget.currentIndex() == 3:
+
+                if self.dlg.radioDataGouvOrga.isChecked():
+                    ODsource = 'data.gouv.fr'
+                elif self.dlg.radioD4C.isChecked():
+                    ODsource = 'Data4Citizen'
+                elif self.dlg.radioODS.isChecked():
+                    ODsource = 'ODS'
+                elif self.dlg.radioCKAN.isChecked():
+                    ODsource = 'CKAN'
+                cache = ('1' + '!!'
+                         + self.dlg.listOpenData.currentItem().text() + '!!'
+                         + self.dlg.listResourceOpenData.currentItem().text() + '!!'
+                         + ODsource + '!!'
+                          + geolabel[0] + ',' + geolabel[1] + '\n')
+            
+            # Écrire les nouvelles données dans le fichier
+            with open(cache_file_path, 'w') as fichier:
+                if lignes_cache:
+                    for ligne in lignes_cache:
+                        if cache.split('!!')[1] == ligne.split('!!')[1] and cache.split('!!')[2] == ligne.split('!!')[2] and cache.split('!!')[3] == ligne.split('!!')[3]:
+                            lignes_cache.remove(ligne)
+                    if lignes_cache:
+                        fichier.writelines(lignes_cache)
+                        fichier.writelines(cache)
+                    else:
+                        fichier.writelines(cache)
+                else:
+                    fichier.writelines(cache)
+            
+        # Écrire les nouvelles données dans le fichier
+        with open(enum_file_path, 'w') as fichier:
+            fichier.writelines(lignes)
+        self.show_success_message(f"{geolabel} ajouté avec succès.")
+            
+        
+    def geoParamsColumnTypeChanged(self):
+        
+        if self.uiGeoParams.comboColumnType.currentIndex() == 0:
+            self.uiGeoParams.lineGeo2.setHidden(True)
+            self.uiGeoParams.label_lon.setHidden(True)
+            self.uiGeoParams.label_lat.setText("Nom de la colonne :")
+        
+        if self.uiGeoParams.comboColumnType.currentIndex() == 1:
+            self.uiGeoParams.lineGeo2.setHidden(False)
+            self.uiGeoParams.label_lon.setHidden(False)
+            self.uiGeoParams.label_lat.setText("Nom de la colonne pour la latitude :")
+            self.uiGeoParams.label_lon.setText("Nom de la colonne pour la longitude :")
+
+
+    def openDeleteGeoParam(self):
+        #Create a dialog with a combobox to select the word to delete
+        self.windowDeleteGeoParam = QtWidgets.QDialog()
+        self.uiDeleteGeoParam = Ui_DeleteGeoParam()
+        self.uiDeleteGeoParam.setupUi(self.windowDeleteGeoParam)
+
+        with open(os.path.expanduser('~/.d4cplugin') + '/enums_geo.txt', 'r') as fichier:
+            lignes = fichier.readlines()
+            for ligne in lignes:
+                self.uiDeleteGeoParam.comboBox_wordToDelete.addItem(ligne.replace('\n', ''))
+        
+        self.uiDeleteGeoParam.comboBox_wordToDelete.addItem('------ Tuples ------')
+
+        with open(os.path.expanduser('~/.d4cplugin') + '/enums_tuple_geo.txt', 'r') as fichier:
+            lignes = fichier.readlines()
+            for ligne in lignes:
+                self.uiDeleteGeoParam.comboBox_wordToDelete.addItem(ligne.replace('\n', ''))
+
+        self.uiDeleteGeoParam.pushDelete.clicked.connect(self.deleteGeoParam)
+        self.uiDeleteGeoParam.pushCancel.clicked.connect(self.windowDeleteGeoParam.close)
+
+        self.windowDeleteGeoParam.exec_()
+
+    def deleteGeoParam(self):
+
+        word_to_delete = self.uiDeleteGeoParam.comboBox_wordToDelete.currentText()
+
+        if word_to_delete == '------ Tuples ------':
+            return
+        if word_to_delete == '':
+            self.show_info_message(self.tr('Veuillez sélectionner un mot ou un tuple à supprimer'))
+            return
+        
+        if ',' in word_to_delete:
+            enum_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_tuple_geo.txt'
+
+            # Lire les données actuelles du fichier
+            with open(enum_file_path, 'r') as fichier:
+                lignes = fichier.readlines()
+
+            # Convertir les chaînes en tuples
+            tuples_existants = [tuple(ligne.strip().split(',')) for ligne in lignes]
+            word_to_delete = tuple(word_to_delete.strip().split(','))
+            
+            # supprimer le tuple de la liste
+            tuples_existants.remove(word_to_delete)
+
+            # Écrire les nouvelles données dans le fichier
+            with open(enum_file_path, 'w') as fichier:
+                for ligne in tuples_existants:
+                    fichier.write(','.join(ligne) + '\n')
+        else:
+            enum_file_path = os.path.expanduser('~/.d4cplugin') + '/enums_geo.txt'
+
+            # Lire les données actuelles du fichier
+            with open(enum_file_path, 'r') as fichier:
+                lignes = fichier.readlines()
+            
+            # supprimer le mot de la liste
+            lignes.remove(word_to_delete + '\n')
+
+            # Écrire les nouvelles données dans le fichier
+            with open(enum_file_path, 'w') as fichier:
+                fichier.writelines(lignes)
+
+        self.show_success_message(f"{word_to_delete} supprimé avec succès.")
+        self.windowDeleteGeoParam.close()

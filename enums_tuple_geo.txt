@@ -1,0 +1,8 @@
+latitude,longitude
+lat,lon
+lat,lng
+lat,long
+lat_x,lon_y
+xlat,ylong
+dp_x,dp_y
+dp_x,db_nb_places

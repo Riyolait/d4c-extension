@@ -141,7 +141,7 @@
     </message>
     <message>
         <location filename="d4c_api_dialog_logins.py" line="144"/>
-        <source>Sites enregistrées :</source>
+        <source>Sites enregistr&#xc3;&#xa9;s :</source>
         <translation>Registered websites :</translation>
     </message>
     <message>
@@ -194,270 +194,300 @@
 <context>
     <name>d4cAPI</name>
     <message>
-        <location filename="d4c_api.py" line="398"/>
+        <location filename="d4c_api.py" line="408"/>
         <source>&amp;Data4Citizen Plugin</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="267"/>
+        <location filename="d4c_api.py" line="277"/>
         <source>Test</source>
         <translation>Test</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="293"/>
+        <location filename="d4c_api.py" line="303"/>
         <source>Data4Citizen extension</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="303"/>
+        <location filename="d4c_api.py" line="313"/>
         <source>Configuration</source>
         <translation></translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="667"/>
+        <location filename="d4c_api.py" line="684"/>
         <source>URL Invalide !</source>
         <translation>Invalid URL !</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="918"/>
+        <location filename="d4c_api.py" line="935"/>
         <source>Veuillez sélectionner une ressource</source>
         <translation>Please select a resource first</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="927"/>
+        <location filename="d4c_api.py" line="951"/>
         <source>Erreur de chargement de la couche !</source>
         <translation>Error while loading the layer !</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1171"/>
+        <location filename="d4c_api.py" line="1203"/>
         <source>Fichier importé avec succès</source>
         <translation>Import succeeded</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1190"/>
+        <location filename="d4c_api.py" line="1222"/>
         <source>Cache vidé avec succès</source>
         <translation>Cache emptied successfully</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1193"/>
+        <location filename="d4c_api.py" line="1225"/>
         <source>Erreur lors de la suppression des fichiers, vérifiez que les fichiers ne sont pas ouverts dans QGIS</source>
         <translation>Error while deleting files</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1439"/>
+        <location filename="d4c_api.py" line="1471"/>
         <source>Fichier exporté avec succès</source>
         <translation>Export successful</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1693"/>
+        <location filename="d4c_api.py" line="1725"/>
         <source>Veuillez sélectionner une couche à exporter</source>
         <translation>Please select a layer to export</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1478"/>
+        <location filename="d4c_api.py" line="1510"/>
         <source>Veuillez sélectionner une ressource à remplacer</source>
         <translation>Please select a resource to replace</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1757"/>
+        <location filename="d4c_api.py" line="1789"/>
         <source>Erreur lors de la récupération des organisations</source>
         <translation>Error while getting organizations</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1975"/>
+        <location filename="d4c_api.py" line="2011"/>
         <source>Erreur lors de la création du dataset</source>
         <translation>Error creating the dataset</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="1977"/>
+        <location filename="d4c_api.py" line="2013"/>
         <source>Dataset ajouté avec succès</source>
         <translation>Dataset added successfully</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2055"/>
+        <location filename="d4c_api.py" line="2091"/>
         <source>Erreur lors de la suppression de la ressource</source>
         <translation>Error deleting the resource</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2057"/>
+        <location filename="d4c_api.py" line="2093"/>
         <source>Ressource supprimée avec succès</source>
         <translation>Resource deleted successfully</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2128"/>
+        <location filename="d4c_api.py" line="2164"/>
         <source>Erreur lors de la suppression du dataset</source>
         <translation>Error deleting the dataset</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2130"/>
+        <location filename="d4c_api.py" line="2166"/>
         <source>Dataset supprimé avec succès</source>
         <translation>Dataset deleted successfully</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2303"/>
+        <location filename="d4c_api.py" line="2339"/>
         <source>Erreur lors de la récupération des métadonnées</source>
         <translation>Error getting metadatas</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2396"/>
+        <location filename="d4c_api.py" line="2432"/>
         <source>Erreur lors de la modification du dataset</source>
         <translation>Error while modifying dataset</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2398"/>
+        <location filename="d4c_api.py" line="2434"/>
         <source>Dataset modifié avec succès</source>
         <translation>Dataset modifyied successfully</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2478"/>
+        <location filename="d4c_api.py" line="2514"/>
         <source>Veuillez patienter pendant le chargement des données</source>
         <translation>Please wait during data retrieving</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2815"/>
+        <location filename="d4c_api.py" line="2851"/>
         <source>Veuillez choisir le fichier à importer pour le dataset : </source>
         <translation>Please select which file to import for the dataset : </translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="2921"/>
+        <location filename="d4c_api.py" line="2957"/>
         <source>Veuillez sélectionner un fichier à importer</source>
         <translation>Please select a file to import</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3286"/>
+        <location filename="d4c_api.py" line="3300"/>
         <source>Veuillez entrer un nom pour la couche fusionnée !</source>
         <translation>Please enter a name for the calculated layer !</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3343"/>
+        <location filename="d4c_api.py" line="3357"/>
         <source>Couche fusionnée créée avec succès</source>
         <translation>Fusion success</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3352"/>
+        <location filename="d4c_api.py" line="3369"/>
         <source>Veuillez sélectionner 2 couches uniquement pour la différence</source>
         <translation>Please select 2 layers only for the difference</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3376"/>
+        <location filename="d4c_api.py" line="3393"/>
         <source>Différence créée avec succès</source>
         <translation>Difference success</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3379"/>
-        <source>Erreur lors de la différence des couches, vérifier que les couches sont compatibles</source>
-        <translation>Error while calculating the layer, please make sure all layers are compatible</translation>
-    </message>
-    <message>
-        <location filename="d4c_api.py" line="3385"/>
+        <location filename="d4c_api.py" line="3404"/>
         <source>Veuillez sélectionner 2 couches uniquement pour l'union</source>
         <translation>Please select 2 layers only for the union</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3409"/>
+        <location filename="d4c_api.py" line="3429"/>
         <source>Union créée avec succès</source>
         <translation>Union success</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3412"/>
-        <source>Erreur lors de l'union des couches, vérifier que les couches sont compatibles</source>
-        <translation>Error while calculating the layer, please make sure all layers are compatible</translation>
-    </message>
-    <message>
-        <location filename="d4c_api.py" line="3418"/>
+        <location filename="d4c_api.py" line="3441"/>
         <source>Veuillez sélectionner 2 couches uniquement pour l'intersection</source>
         <translation>Please select 2 layers only for the intersection</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3442"/>
+        <location filename="d4c_api.py" line="3466"/>
         <source>Intersection créée avec succès</source>
         <translation>Intersection success</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3445"/>
-        <source>Erreur lors de l'intersection des couches, vérifier que les couches sont compatibles</source>
-        <translation>Error while calculating the layer, please make sure all layers are compatible</translation>
-    </message>
-    <message>
-        <location filename="d4c_api.py" line="3450"/>
+        <location filename="d4c_api.py" line="3475"/>
         <source>Veuillez sélectionner une couche valide</source>
         <translation>Please select a valid layer</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3474"/>
+        <location filename="d4c_api.py" line="3501"/>
         <source>Centroïde créée avec succès</source>
         <translation>Centroid success</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3477"/>
-        <source>Erreur lors du calcul des centroides</source>
-        <translation>Error while calculating the layer, please make sure the layer is compatible</translation>
-    </message>
-    <message>
-        <location filename="d4c_api.py" line="693"/>
+        <location filename="d4c_api.py" line="710"/>
         <source>Aucun Jeu de Donnée Trouvé</source>
         <translation>No Dataset Found</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="872"/>
+        <location filename="d4c_api.py" line="889"/>
         <source>Erreur lors du téléchargement : </source>
         <translation>Error downloading file : </translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3468"/>
+        <location filename="d4c_api.py" line="3492"/>
         <source>Une couche avec ce nom existe déjà</source>
         <translation>Layer name already exists</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3524"/>
+        <location filename="d4c_api.py" line="3543"/>
         <source>Veuillez sélectionner un site à interroger</source>
         <translation>Please select a website first</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3638"/>
+        <location filename="d4c_api.py" line="3659"/>
         <source>Veuillez entrer des paramètres de recherche</source>
         <translation>Please enter a search parameter</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3709"/>
+        <location filename="d4c_api.py" line="3730"/>
         <source>Aucun résultat</source>
         <translation>No result</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3749"/>
+        <location filename="d4c_api.py" line="3770"/>
         <source>Erreur : </source>
         <translation>Error : </translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3752"/>
+        <location filename="d4c_api.py" line="3773"/>
         <source>Erreur de requête : {e}</source>
         <translation>Request Error : {e}</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3699"/>
+        <location filename="d4c_api.py" line="3720"/>
         <source>Veuillez entrer une URL</source>
         <translation>Please enter URL first</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3766"/>
+        <location filename="d4c_api.py" line="3787"/>
         <source>Veuillez sélectionner une ressource à télécharger</source>
         <translation>Please select a resource to download</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3811"/>
+        <location filename="d4c_api.py" line="3832"/>
         <source>Couche ajoutée avec succès</source>
         <translation>Layer added !</translation>
     </message>
     <message>
-        <location filename="d4c_api.py" line="3814"/>
+        <location filename="d4c_api.py" line="3835"/>
         <source>Erreur lors de l&apos;ajout de la couche</source>
         <translation>Error adding layer</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="3272"/>
+        <source>Veuillez sélectionner une couche à supprimer !</source>
+        <translation>Please select a layer to delete !</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="3361"/>
+        <source>Erreur lors de la fusion des couches, vérifier que les couches sont compatibles. {e}</source>
+        <translation>Error, please make sure all layers are compatible</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="3396"/>
+        <source>Erreur lors de la différence des couches, vérifier que les couches sont compatibles. {e}</source>
+        <translation>Error, please make sure all layers are compatible</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="3433"/>
+        <source>Erreur lors de l'union des couches, vérifier que les couches sont compatibles. {e}</source>
+        <translation>Error, please make sure all layers are compatible</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="3469"/>
+        <source>Erreur lors de l'intersection des couches, vérifier que les couches sont compatibles. {e}</source>
+        <translation>Error, please make sure all layers are compatible</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="3504"/>
+        <source>Erreur lors du calcul des centroides. {e}</source>
+        <translation>Error, please make sure all layers are compatible</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="4049"/>
+        <source>Veuillez entrer un nom de colonne</source>
+        <translation>Please enter a column name</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="4071"/>
+        <source>Veuillez entrer un nom de colonne pour la latitude</source>
+        <translation>Please enter a column name for latitude</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="4075"/>
+        <source>Veuillez entrer un nom de colonne pour la longitude</source>
+        <translation>Please enter a column name for longitude</translation>
+    </message>
+    <message>
+        <location filename="d4c_api.py" line="4150"/>
+        <source>Veuillez sélectionner un mot ou un tuple à supprimer</source>
+        <translation>Please select a word or a tuple to delete</translation>
     </message>
 </context>
 <context>
     <name>d4cAPIDialogBase</name>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1278"/>
+        <location filename="d4c_api_dialog_base.ui" line="1292"/>
         <source>Data4Citizen</source>
         <translation>Data4Citizen</translation>
     </message>
@@ -472,7 +502,7 @@
         <translation>Close</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="896"/>
+        <location filename="d4c_api_dialog_base.ui" line="910"/>
         <source>Importer</source>
         <translation>Import</translation>
     </message>
@@ -524,252 +554,252 @@ Jeu de Donnée</source>
         <translation>Preview</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="424"/>
+        <location filename="d4c_api_dialog_base.ui" line="438"/>
         <source>Exporter</source>
         <translation>Export</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="382"/>
+        <location filename="d4c_api_dialog_base.ui" line="396"/>
         <source>Selectionner une couche</source>
         <translation>Select a layer</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="395"/>
+        <location filename="d4c_api_dialog_base.ui" line="1494"/>
         <source>Actualiser</source>
         <translation>Refresh</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="440"/>
+        <location filename="d4c_api_dialog_base.ui" line="454"/>
         <source>Exporter en tant que :</source>
         <translation>Export as :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="453"/>
+        <location filename="d4c_api_dialog_base.ui" line="467"/>
         <source>Nouvelle ressource</source>
         <translation>New resource</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="472"/>
+        <location filename="d4c_api_dialog_base.ui" line="486"/>
         <source>Ressource existante</source>
         <translation>Existing resource</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1029"/>
+        <location filename="d4c_api_dialog_base.ui" line="1043"/>
         <source>Jeu de donnée :</source>
         <translation>Dataset :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="498"/>
+        <location filename="d4c_api_dialog_base.ui" line="512"/>
         <source>Changer</source>
         <translation>Change</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="514"/>
+        <location filename="d4c_api_dialog_base.ui" line="528"/>
         <source>Créer</source>
         <translation>Create</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="555"/>
+        <location filename="d4c_api_dialog_base.ui" line="569"/>
         <source>Créer un Jeu de Donnée :</source>
         <translation>Create a new dataset :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="568"/>
+        <location filename="d4c_api_dialog_base.ui" line="582"/>
         <source>Afficher tous les jeu de données</source>
         <translation>Display all datasets</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="633"/>
+        <location filename="d4c_api_dialog_base.ui" line="647"/>
         <source>Première couche </source>
         <translation>First layer </translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="646"/>
+        <location filename="d4c_api_dialog_base.ui" line="660"/>
         <source>Deuxième couche </source>
         <translation>Second layer </translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="659"/>
+        <location filename="d4c_api_dialog_base.ui" line="673"/>
         <source>Ajouter des couches supplémentaire :</source>
         <translation>Add more layers :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="688"/>
+        <location filename="d4c_api_dialog_base.ui" line="702"/>
         <source>Ajouter</source>
         <translation>Add</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="714"/>
+        <location filename="d4c_api_dialog_base.ui" line="728"/>
         <source>Calculer</source>
         <translation>Execute</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="730"/>
+        <location filename="d4c_api_dialog_base.ui" line="744"/>
         <source>Retirer</source>
         <translation>Remove</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="759"/>
+        <location filename="d4c_api_dialog_base.ui" line="773"/>
         <source>Nom de la couche :</source>
         <translation>Layer name :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="776"/>
+        <location filename="d4c_api_dialog_base.ui" line="790"/>
         <source>Fusion</source>
         <translation>Fusion</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="781"/>
+        <location filename="d4c_api_dialog_base.ui" line="795"/>
         <source>Différence</source>
         <translation>Difference</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="786"/>
+        <location filename="d4c_api_dialog_base.ui" line="800"/>
         <source>Union</source>
         <translation>Union</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="791"/>
+        <location filename="d4c_api_dialog_base.ui" line="805"/>
         <source>Intersection</source>
         <translation>Intersection</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="796"/>
+        <location filename="d4c_api_dialog_base.ui" line="810"/>
         <source>Centroide</source>
         <translation>Centroid</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="813"/>
+        <location filename="d4c_api_dialog_base.ui" line="827"/>
         <source>Créer un centroïde pour chaque partie</source>
         <translation>Create a centroid for each part</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1070"/>
+        <location filename="d4c_api_dialog_base.ui" line="1084"/>
         <source>Sélectionner un site D4C</source>
         <translation>Select a D4C Webiste</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1111"/>
+        <location filename="d4c_api_dialog_base.ui" line="1125"/>
         <source>Site D4C actuel :</source>
         <translation>D4C Website :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1152"/>
+        <location filename="d4c_api_dialog_base.ui" line="1166"/>
         <source>Historique des jeux de données :</source>
         <translation>Dataset History :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1183"/>
+        <location filename="d4c_api_dialog_base.ui" line="1197"/>
         <source>Charger</source>
         <translation>Load</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1199"/>
+        <location filename="d4c_api_dialog_base.ui" line="1213"/>
         <source>Ouvrir l&apos;emplacement des fichiers</source>
         <translation>Open file folder</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1236"/>
+        <location filename="d4c_api_dialog_base.ui" line="1250"/>
         <source>Ouvrir dans Qgis</source>
         <translation>Open in Qgis</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1258"/>
+        <location filename="d4c_api_dialog_base.ui" line="1272"/>
         <source>Derniers fichiers importés :</source>
         <translation>Last imported files :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1301"/>
+        <location filename="d4c_api_dialog_base.ui" line="1315"/>
         <source>Ouvrir</source>
         <translation>Open</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1314"/>
+        <location filename="d4c_api_dialog_base.ui" line="1328"/>
         <source>A propos</source>
         <translation>About</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1327"/>
+        <location filename="d4c_api_dialog_base.ui" line="1341"/>
         <source>Aide</source>
         <translation>Help</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1353"/>
+        <location filename="d4c_api_dialog_base.ui" line="1367"/>
         <source>Purger</source>
         <translation>Clear</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1366"/>
+        <location filename="d4c_api_dialog_base.ui" line="1380"/>
         <source>Utilisateur :</source>
         <translation>User :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1385"/>
+        <location filename="d4c_api_dialog_base.ui" line="1399"/>
         <source>Session :</source>
         <translation>Session :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1442"/>
+        <location filename="d4c_api_dialog_base.ui" line="1456"/>
         <source>URL :</source>
         <translation>URL :</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="598"/>
+        <location filename="d4c_api_dialog_base.ui" line="612"/>
         <source>Outils</source>
         <translation>Tools</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="819"/>
+        <location filename="d4c_api_dialog_base.ui" line="833"/>
         <source>OpenData</source>
         <translation>OpenData</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="831"/>
+        <location filename="d4c_api_dialog_base.ui" line="845"/>
         <source>Data.Gouv.fr</source>
         <translation>Data.Gouv.fr</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="860"/>
+        <location filename="d4c_api_dialog_base.ui" line="874"/>
         <source>OpenDataSoft</source>
         <translation>OpenDataSoft</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="873"/>
+        <location filename="d4c_api_dialog_base.ui" line="887"/>
         <source>Entrez les mots-clefs de recherche</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="909"/>
+        <location filename="d4c_api_dialog_base.ui" line="923"/>
         <source>CKAN/DKAN</source>
-        <translation >CKAN/DKAN</translation>
+        <translation>CKAN/DKAN</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1055"/>
+        <location filename="d4c_api_dialog_base.ui" line="1069"/>
         <source>Rechercher</source>
         <translation>Search</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="954"/>
+        <location filename="d4c_api_dialog_base.ui" line="968"/>
         <source>URL </source>
         <translation>URL</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="977"/>
+        <location filename="d4c_api_dialog_base.ui" line="991"/>
         <source>Dataset</source>
-        <translation >Dataset</translation>
+        <translation>Dataset</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="990"/>
+        <location filename="d4c_api_dialog_base.ui" line="1004"/>
         <source>Organisations</source>
         <translation>Organizations</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1003"/>
+        <location filename="d4c_api_dialog_base.ui" line="1017"/>
         <source>Prévisualiser</source>
         <translation>Preview</translation>
     </message>
     <message>
-        <location filename="d4c_api_dialog_base.ui" line="1042"/>
+        <location filename="d4c_api_dialog_base.ui" line="1056"/>
         <source>Ressource :</source>
         <translation>Resource :</translation>
     </message>
@@ -801,7 +831,7 @@ Jeu de Donnée</source>
     </message>
     <message>
         <location filename="d4c_api_dialog_plugininfos.py" line="47"/>
-        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;D&#xc3;&#xa9;tail de l&apos;extension &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;:&lt;/span&gt; Cette extension utilise l&apos;API de Data4Citizen afin de&lt;/p&gt;&lt;p&gt;manipuler des Jeux de Donn&#xc3;&#xa9;es depuis Qgis.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Auteur &lt;/span&gt;: Matthieu Serek @ BPM-conseil&lt;br/&gt;&lt;br/&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Contact&lt;/span&gt;: matthieu.serek@bpm-conseil.com&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Git&lt;/span&gt; :&lt;a href=&quot;https://github.com/Riyolait/d4c-extension&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; https://github.com/Riyolait/d4c-extension&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;BPM-Conseil&lt;/span&gt; :&lt;a href=&quot;http://www.bpm-conseil.com/fr&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; http://www.bpm-conseil.com/fr&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Librairie(s) Python Externe&lt;/span&gt; : cryptography&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Version &lt;/span&gt;: v1.4&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
+        <source>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;D&#xc3;&#xa9;tail de l&apos;extension &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;:&lt;/span&gt; Cette extension utilise l&apos;API de Data4Citizen afin de&lt;/p&gt;&lt;p&gt;manipuler des Jeux de Donn&#xc3;&#xa9;es depuis Qgis.&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Auteur &lt;/span&gt;: Matthieu Serek @ BPM-conseil&lt;br/&gt;&lt;br/&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Contact&lt;/span&gt;: matthieu.serek@bpm-conseil.com&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Git&lt;/span&gt; :&lt;a href=&quot;https://github.com/Riyolait/d4c-extension&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; https://github.com/Riyolait/d4c-extension&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;BPM-Conseil&lt;/span&gt; :&lt;a href=&quot;http://www.bpm-conseil.com/fr&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; http://www.bpm-conseil.com/fr&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Librairie(s) Python Externe&lt;/span&gt; : cryptography&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Version &lt;/span&gt;: v1.5&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</source>
         <translation>&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Details &lt;/span&gt;&lt;span style=&quot; font-weight:600;&quot;&gt;:&lt;/span&gt; This plugin uses Data4Citizen API to&lt;/p&gt;&lt;p&gt;manipulate datasets and resources from Qgis&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Author &lt;/span&gt;: Matthieu Serek @ BPM-conseil&lt;br/&gt;&lt;br/&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Contact&lt;/span&gt;: matthieu.serek@bpm-conseil.com&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Git&lt;/span&gt; :&lt;a href=&quot;https://github.com/Riyolait/d4c-qgis-extension&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; https://github.com/Riyolait/d4c-qgis-extension&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;BPM-Conseil&lt;/span&gt; :&lt;a href=&quot;http://www.bpm-conseil.com/fr&quot;&gt;&lt;span style=&quot; text-decoration: underline; color:#0000ff;&quot;&gt; http://www.bpm-conseil.com/fr&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;External Python libs&lt;/span&gt; : cryptography&lt;/p&gt;&lt;p&gt;&lt;span style=&quot; font-weight:600; text-decoration: underline;&quot;&gt;Version &lt;/span&gt;: v1.3&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;</translation>
     </message>
     <message>

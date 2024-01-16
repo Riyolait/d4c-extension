@@ -6,7 +6,7 @@
 name=Data4Citizen Plugin
 qgisMinimumVersion=3.0
 description=Using Data4Citizen API to manipulate CKAN data
-version=1.4.0
+version=1.6.0
 author=MSE @ BPM-conseil
 email=matthieu.serek@bpm-conseil.com
 
